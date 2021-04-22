@@ -12,11 +12,11 @@ namespace MarsRoverCore
         private Coordinates _currentCoordinates;
         private Direction _currentDirection;
 
-        public Rover(IMap map)
+        public Rover(int initialX, int initialY, Direction initialDirection, IMap map)
         {
             _map = map ?? throw new ArgumentNullException(nameof(map));
-            _currentCoordinates = new Coordinates(0, 0);
-            _currentDirection = Direction.North;
+            _currentCoordinates = new Coordinates(initialX, initialY);
+            _currentDirection = initialDirection;
             _availableCommands = new List<Command>
             {
                 new MoveCommand(() => MoveToNewCoordinates(_map.NextCoordinateTo(_currentCoordinates, _currentDirection))),

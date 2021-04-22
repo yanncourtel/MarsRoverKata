@@ -12,20 +12,21 @@ namespace MarsRoverCore.Tests
 
         public RoverShould()
         {
-            _rover = new Rover(new Map(10, 10));
+            _rover = new Rover(0, 0, Direction.North, new Map(10, 10));
         }
 
         [Fact]
         public void Have_An_Initial_Position()
         {
+            _rover = new Rover(1, 1, Direction.North, new Map(10, 10));
             string currentPosition = _rover.ReportPosition();
-            currentPosition.Should().Be("0:0:N");
+            currentPosition.Should().Be("1:1:N");
         }
 
         [Fact]
         public void Have_A_Map()
         {
-            Action act = () => _rover = new Rover(null);
+            Action act = () => _rover = new Rover(0, 0, Direction.North, null);
             act.Should().Throw<ArgumentNullException>();
         }
 
@@ -129,7 +130,7 @@ namespace MarsRoverCore.Tests
         [Fact]
         public void Throw_Exception_If_List_Obstacles_Is_Null()
         {
-            Action act = () => _rover = new Rover(new Map(10, 10, null));
+            Action act = () => _rover = new Rover(0, 0, Direction.North, new Map(10, 10, null));
             act.Should().Throw<ArgumentNullException>();
         }
 
@@ -143,7 +144,7 @@ namespace MarsRoverCore.Tests
                 new Coordinates(obstacleX, obstacleY)
             };
             var map = new Map(10, 10, obstacles);
-            _rover = new Rover(map);
+            _rover = new Rover(0, 0, Direction.North, map);
 
             var executionResult = _rover.ExecuteCommand(commands);
 
@@ -160,7 +161,7 @@ namespace MarsRoverCore.Tests
                 new Coordinates(obstacleX, obstacleY)
             };
             var map = new Map(10, 10, obstacles);
-            _rover = new Rover(map);
+            _rover = new Rover(0, 0, Direction.North, map);
 
             _ = _rover.ExecuteCommand(commands);
 
